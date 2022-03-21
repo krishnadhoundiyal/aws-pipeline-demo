@@ -19,12 +19,22 @@ pipeline {
 					}
             }
         }
+		stage('docker image build') {
+            steps {
+                sh "docker build -t ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT} ."
+            }
+        }
 		
 		stage ('docker hub login') {
 		     steps {
 			       sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
 			 }
 		}
+		stage('docker image push') {
+            steps {
+                sh "docker push ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
+            }
+        }
       
     }
 	}
