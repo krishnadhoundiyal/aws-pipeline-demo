@@ -11,8 +11,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps{
-                def scmVars = checkout([$class: 'GitSCM', branches: [[name: '*/master']],
-    userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
 				sh 'git rev-parse HEAD > commit'
 				env.GIT_COMMIT= readFile('commit').trim()
             }
