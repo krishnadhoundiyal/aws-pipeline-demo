@@ -7,6 +7,7 @@ pipeline {
         IMAGE_NAME = "ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
         PREVIOUS_IMAGE_NAME = "gcr.io/ambient-net-308011/radhe-resume:v1.1.${currentBuild.previousBuild.getNumber()}"
 		GIT_HASH = ""
+		dockerhub = credentials('docker')
     }
     stages {
         stage('Git checkout') {
@@ -18,11 +19,12 @@ pipeline {
 					}
             }
         }
-		stage('docker image build') {
-            steps {
-                sh "docker build -t ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT} ."
-            }
-        }
+		
+		stage ('docker hub login') {
+		     steps {
+			       sh 'echo $dockerhub_PSW | docker login -u $dockerhub_USR --password-stdin'
+			 }
+		}
       
     }
 	}
