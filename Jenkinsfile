@@ -11,9 +11,9 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+                def scmVars = checkout([$class: 'GitSCM', branches: [[name: '*/master']],
     userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
-				
+				env.GIT_COMMIT = scmVars.GIT_COMMIT
             }
         }
       
