@@ -11,18 +11,9 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps{
-                git (
-                        
-                        url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git',
-                        branch : 'master',
-                       
-                        
-                        
-                )
-				withCredentials([gitUsernamePassword(credentialsId: 'someo1',
-                 gitToolName: 'git-tool')]) {
-  sh "git checkout '$GIT_HASH'"
-}
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+    userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
+				
             }
         }
       
