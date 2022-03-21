@@ -12,8 +12,10 @@ pipeline {
         stage('Git checkout') {
             steps{
                 checkout([$class: 'GitSCM', branches: [[name: '*/master']],userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
-				sh 'git rev-parse HEAD > commit'
-				env.GIT_COMMIT= readFile('commit').trim()
+				script {
+				        sh 'git rev-parse HEAD > commit'
+						env.GIT_COMMIT= readFile('commit').trim()
+					}
             }
         }
       
