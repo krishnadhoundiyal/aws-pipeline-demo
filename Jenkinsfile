@@ -13,7 +13,8 @@ pipeline {
             steps{
                 def scmVars = checkout([$class: 'GitSCM', branches: [[name: '*/master']],
     userRemoteConfigs: [[url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git']]])
-				env.GIT_COMMIT = scmVars.GIT_COMMIT
+				sh 'git rev-parse HEAD > commit'
+				env.GIT_COMMIT= readFile('commit').trim()
             }
         }
       
