@@ -20,6 +20,11 @@ pipeline {
                 )
             }
         }
+		stage('docker image build') {
+            steps {
+                sh "echo $IMAGE_NAME"
+            }
+        }
       
     }
 	}
