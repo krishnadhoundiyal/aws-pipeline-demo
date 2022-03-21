@@ -13,8 +13,8 @@ pipeline {
                 git (
                         
                         url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git',
-                        branch : 'master',
-                        credentialsId: 'git-token-aws-pipeline'
+                        branch : 'master'
+                  
                         
                         
                 )
