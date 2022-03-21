@@ -6,6 +6,7 @@ pipeline {
         LAST_CLOUD_RUN_REVISION = "radhe-resume-${currentBuild.previousBuild.getNumber()}"
         IMAGE_NAME = "gcr.io/ambient-net-308011/radhe-resume:v1.1.${IMAGE_VERSION}"
         PREVIOUS_IMAGE_NAME = "gcr.io/ambient-net-308011/radhe-resume:v1.1.${currentBuild.previousBuild.getNumber()}"
+		GIT_HASH = ""
     }
     stages {
         stage('Git checkout') {
@@ -13,16 +14,15 @@ pipeline {
                 git (
                         
                         url: 'https://github.com/krishnadhoundiyal/aws-pipeline-demo.git',
-                        branch : 'master'
-                  
+                        branch : 'master',
+                       
                         
                         
                 )
-            }
-        }
-		stage('docker image build') {
-            steps {
-                sh "echo $IMAGE_NAME"
+				withCredentials([gitUsernamePassword(credentialsId: 'someo1',
+                 gitToolName: 'git-tool')]) {
+  sh "git checkout '$GIT_HASH'"
+}
             }
         }
       
