@@ -39,7 +39,7 @@ pipeline {
 		stage('docker kill any container running the application and start the updated docker container') {
             steps {
 			     script {
-				        sh "docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print \"\$1\"}}' > container"
+				        sh "docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}' > container"
 				        
 					}
             }
