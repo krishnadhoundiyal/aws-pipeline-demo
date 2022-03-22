@@ -36,13 +36,19 @@ pipeline {
                 sh "docker push ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
             }
         }
-		stage('docker kill any container running the application and start the updated docker container') {
+		stage('docker kill any container running the application') {
             steps {
 			     script {
 				        sh '''docker stop $(docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}')
-							  docker run -l app=RResume -p $EXPOSED_PORT:$EXPOSED_PORT ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}
 						'''
 				        
+					}
+            }
+        }
+		stage('docker start the application') {
+            steps {
+			     script {
+				        sh "docker run -l app=RResume -p 8089:8089 ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
 					}
             }
         }
