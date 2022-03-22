@@ -49,7 +49,7 @@ pipeline {
 		stage('docker start the application') {
             steps {
 			     script {
-				        sh "docker run -l app=RResume -p 8089:8089 ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
+				        sh "docker run -d -l app=RResume -p 8089:8089 ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
 					}
             }
         }
