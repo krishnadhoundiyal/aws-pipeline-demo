@@ -39,7 +39,8 @@ pipeline {
 		stage('docker kill any container running the application') {
             steps {
 			     script {
-				        sh '''docker stop $(docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}')
+				        sh '''
+						      docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}' | xargs docker stop
 						'''
 				        
 					}
