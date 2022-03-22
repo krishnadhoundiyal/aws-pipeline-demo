@@ -40,7 +40,7 @@ pipeline {
             steps {
 			     script {
 				        sh '''
-						      docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}' | xargs docker stop
+						      docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}' | xargs --no-run-if-empty docker container stop
 						'''
 				        
 					}
