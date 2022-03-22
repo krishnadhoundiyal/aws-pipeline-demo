@@ -8,6 +8,7 @@ pipeline {
         PREVIOUS_IMAGE_NAME = "gcr.io/ambient-net-308011/radhe-resume:v1.1.${currentBuild.previousBuild.getNumber()}"
 		GIT_HASH = ""
 		dockerhub = credentials('docker')
+		EXPOSED_PORT=8089
     }
     stages {
         stage('Git checkout') {
@@ -33,6 +34,14 @@ pipeline {
 		stage('docker image push') {
             steps {
                 sh "docker push ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
+            }
+        }
+		stage('docker kill any container running the application and start the updated docker container') {
+            steps {
+			     script {
+				        sh "docker stop $(docker ps -f \"label=app=RResume\" | awk '{if (NR!=1) {print $1}}')"
+						sh "docker run -l app=RResume -p $EXPOSED_PORT:$EXPOSED_PORT ericssonkubernetes/aws-pipeline:v1.1.${env.GIT_COMMIT}"
+					}
             }
         }
       
