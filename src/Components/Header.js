@@ -56,7 +56,7 @@ class Header extends Component {
         <div className="row banner">
           <div className="banner-text">
             <Fade bottom>
-              <h1 className="responsive-headline" >DREAM-THEATRE1</h1>
+              <h1 className="responsive-headline" >DREAM-THEATRE2</h1>
             </Fade>
             <Fade bottom duration={1200}>
               <h3>Radhe Dhoundiyal is an avid reader and  has aspiration for authoring books. He devotes his time rigoursly in training for long distance running. He wants to represent India in international events. Radhe has also developed a good understanding about electric circuits and makes his own miniature models of drones and electric trains.
